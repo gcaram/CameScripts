@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Meu RH TOTVS - Calcular diferença de horários
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      2.0
 // @description  Adiciona uma coluna com as horas trabalhadas, descontando 1:30 de almoço.
 // @author       Guilherme Caram Meireles
-// @match        https://rhonline.totvs.com.br:8090/web/app/RH/PortalMeuRH/
+// @match        https://meurh.totvs.io/*
+// @icon         https://totvs.com/favicons/totvs-favicon-bg-light-192x192.png
 // @grant        none
 // ==/UserScript==
 
@@ -53,38 +54,41 @@
         // Itera sobre as linhas da tabela e adiciona a diferença calculada
         const linhas = tabela.querySelectorAll('tbody tr');
         linhas.forEach(linha => {
+            var diferenca = 0;
             const celulas = linha.querySelectorAll('td');
             if (celulas.length >= 2) {
                 // Busca a célula com as divs de entrada e saída
                 const horarioCelula = celulas[1];
                 const divs = horarioCelula.querySelectorAll('div');
-                if (divs.length >= 3) {
-                    const horarioEntrada = divs[1].textContent.substring(0,5).trim();
-                    const horarioSaida = divs[2].textContent.substring(0,5).trim();
+                if (divs.length >= 5) {
+                    const horarioEntrada = divs[1].textContent.substring(0,6).trim();
+                    const horarioSaida = divs[4].textContent.substring(0,6).trim();
 
                     if (horarioEntrada && horarioSaida) {
-                        const diferenca = calcularDiferenca(horarioEntrada, horarioSaida);
-
-                        // Cria uma nova célula para a diferença
-                        const novaCelula = document.createElement('td');
-                        novaCelula.setAttribute(tabela.attributes[0].name,'')
-                        novaCelula.setAttribute('class','clocking')
-                        novaCelula.textContent = parseHoras(diferenca);
-                        if(diferenca<=465)
-                        {
-                            novaCelula.setAttribute('style','color:red')
-                        }
-                        else if(diferenca>=495)
-                        {
-                            novaCelula.setAttribute('style','color:green')
-                        }
-
-                        linha.insertBefore(novaCelula, linha.lastElementChild); // Insere antes da última célula
+                        diferenca = calcularDiferenca(horarioEntrada, horarioSaida);
                     }
                 }
             }
+            // Cria uma nova célula para a diferença
+            const novaCelula = document.createElement('td');
+            novaCelula.setAttribute(tabela.attributes[0].name,'')
+            novaCelula.setAttribute('class','clocking')
+            if(diferenca > 0) {
+                novaCelula.textContent = parseHoras(diferenca);
+                if(diferenca<=465)
+                {
+                    novaCelula.setAttribute('style','color:red')
+                }
+                else if(diferenca>=495)
+                {
+                    novaCelula.setAttribute('style','color:green')
+                }
+            }
+
+            linha.insertBefore(novaCelula, linha.lastElementChild); // Insere antes da última célula
         });
     }
+
     const observer = new MutationObserver(() => {
         console.log('Página carregada. Processando tabela...');
         const tabela = document.querySelector('table'); // Ajuste se necessário para selecionar a tabela correta
