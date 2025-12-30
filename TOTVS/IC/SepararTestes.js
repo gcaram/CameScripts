@@ -2,10 +2,10 @@
 // @name         Dashboard IC - Quebra Linha na CT
 // @namespace    https://github.com/gcaram/CameScripts/
 // @version      1.0
-// @description  try to take over the world!
-// @author       Gui Came
+// @description  Quebra Linha na CT
+// @author       Guilherme Caram Meireles
 // @match        http://engenhariabh/ic/versions/*
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=undefined.engenhariabh
+// @icon         https://totvs.com/favicons/totvs-favicon-bg-light-192x192.png
 // @grant        none
 // ==/UserScript==
 
