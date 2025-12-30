@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Meu RH TOTVS - Calcular diferença de horários
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/gcaram/CameScripts/
 // @version      2.0
 // @description  Adiciona uma coluna com as horas trabalhadas, descontando 1:30 de almoço.
 // @author       Guilherme Caram Meireles
