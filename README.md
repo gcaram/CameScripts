@@ -37,7 +37,12 @@ Conjunto de scripts úteis destinados a execução via Tampermonkey. Os scripts 
 
 ## Licença
 
-Este repositório está licenciado sob os termos do arquivo `LICENSE` na raiz do projeto.
+- Licença: MIT  
+- SPDX: `MIT`  
+
+Este repositório está licenciado sob a Licença MIT — consulte o arquivo `LICENSE` na raiz do projeto para o texto completo.
+
+Você pode copiar, modificar e distribuir os scripts conforme permitido pela Licença MIT. Note que os scripts são fornecidos "as-is" e podem conter comportamento específico para certas URLs/ambientes.
 
 ## Contato
 
